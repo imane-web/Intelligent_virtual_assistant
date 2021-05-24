@@ -5,6 +5,7 @@ import torch
 
 from iva_pytorch import NeuralNet
 from nltk_utils import bag_of_words, tokenize
+from STT import main
 
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
@@ -30,8 +31,8 @@ bot_name = "ENSIAS assitant"
 print("Let's chat! (type 'quit' to exit)")
 while True:
     # sentence = "do you use credit cards?"
-    sentence = input("You: ")
-    
+    #sentence = input("You: ")
+    sentence = main() 
     if sentence == "quit":
         break
 
@@ -50,6 +51,9 @@ while True:
     if prob.item() > 0.75:
         for intent in intents['intents']:
             if tag == intent["tag"]:
+                #if tag=="help&service":
+                    #print("you are talking about \n"+ tag)
+                    
                 print(f"{bot_name}: {random.choice(intent['responses'])}")
     else:
         print(f"{bot_name}: I do not understand...")
